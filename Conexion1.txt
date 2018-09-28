@@ -1,0 +1,41 @@
+       <!-- CONTACT FORM -->
+                         <form action="Conexion1.php" method="post" class="wow fadeInUp" id="contact-form" role="form" data-wow-delay="0.8s">
+                              servidor:
+                              <input type="text" name="ser"><br>
+                              Usuario:
+                              <input type="text" name="usu"><br>
+                              Clave:
+                              <input type="text" name="clv"><br>
+                              Base de datos:
+                              <input type="text" name="bdd"><br>
+                              Digite la consulta:
+                              <input type="text" name="cons"><br>
+                              <input type="submit" name="connect" value="connect">
+                              <?php
+                              if (isset($_post["connect"]))
+                                    {     $ser=$_post["ser"];
+                                          $usu=$_post["correo"];
+                                          $clv=$_post["Asunto"];
+                                          $bdd=$_post["Mensaje"];
+                                          $cons=$_post["cons"];
+                                          require_once("cone1.php");
+                                          $sql=new Conexion_Mysql($Ser,$correo,$Asunto,$Mensaje,$cons);
+                                          $sql->connect();
+                                          $consu=$sql->consulta($cons);
+                                          if ($sql->num_filas($consu)>0)
+                                          { echo "<table>";
+                                            echo "<tr>";
+                                            echo "<th>Codigo</th><th>Nombre</th>
+                                                  <th>Edad</th>";
+                                          while ($row=mysql_fetch_array($consu))
+                                                { echo "<tr>";
+                                                  echo "<td>".$row['codest'].
+                                                       "</td><td>".$row['nomest'].
+                                                       "</td><td>".$row['edad'].
+                                                       "</td>";
+                                                  echo "</tr>";
+                                                  
+                                                  }
+                                           echo "</table>";      
+                                          }
+                                    }
